@@ -1,0 +1,20 @@
+# IntelliJ IDEA specific directories
+.idea/
+*.iml
+
+# Compiled Java class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven directory
+target/
+
+# Gradle directory
+build/
+
+# Virtual Machine crash logs, Linux
+hs_err_pid*
