@@ -6,16 +6,23 @@ import java.util.List;
 
 public class MinMax {
 
+    int minCount;
+    int maxCount;
+    MinMaxImpl impl;
 
-
-    public KalahBoard minMax(KalahBoard board) {
+    public KalahBoard minMax(KalahBoard board, MinMaxImpl impl) {
         int limit = 12;
         int initAlpha = Integer.MIN_VALUE;
         int initBeta = Integer.MAX_VALUE;
+        this.minCount = 0;
+        this.maxCount = 0;
+        this.impl = impl;
         return maxAction(board, limit, initAlpha, initBeta);
     }   
 
-
+    public int getCombinedCount() {
+        return maxCount + minCount;
+    }
 
     private KalahBoard maxAction(KalahBoard board, int limit, int initAlpha, int initBeta) {
         KalahBoard bestAction = null;
@@ -24,7 +31,7 @@ public class MinMax {
         
         int v = Integer.MIN_VALUE;
         var boards = board.possibleActions();
-        Collections.sort(boards, (o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
+        boards.sort((o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
         for (var action : boards) {
             int v1 = minValue(action, limit-1, initAlpha, initBeta);
             if (v1 > v) {
@@ -37,16 +44,19 @@ public class MinMax {
 
     private int minValue(KalahBoard board, int limit, int alpha, int beta) {
         // Prüfe auf Endzustand (Blatt)
+        minCount++;
         if (limit <= 0 || board.isFinished()) return StateEvaluator.evaluate(board);
-        
 
         int v = Integer.MAX_VALUE;
 
         var boards = board.possibleActions();
-        Collections.sort(boards, (o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
+        // Heuristik
+        if (MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING.equals(impl))
+            boards.sort((o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
         for (var action: boards) {
             v = Math.min(v, maxValue(action, limit--, alpha, beta));
-            if (v >= beta) return v; // Beta-Cutoff
+            if (MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING.equals(impl) || MinMaxImpl.ALPHA_BETA_PRUNING.equals(impl))
+                if (v >= beta) return v; // Beta-Cutoff
             alpha = Math.max(v, alpha);
         }
         
@@ -55,17 +65,20 @@ public class MinMax {
 
     private int maxValue(KalahBoard board, int limit, int alpha, int beta) {
         // Prüfe auf Endzustand (Blatt)
+        maxCount++;
         if (limit <= 0 || board.isFinished()) return StateEvaluator.evaluate(board);
     
         int v = Integer.MIN_VALUE;
 
         var boards = board.possibleActions();
-        Collections.sort(boards, (o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
+        // Heuristik
+        if (MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING.equals(impl))
+            boards.sort((o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
         for (var action: board.possibleActions()) {
             v = Math.max(v, minValue(action, limit--, alpha, beta));
-            if (v <= alpha) return v; // Alpha-Cutoff
+            if (MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING.equals(impl) || MinMaxImpl.ALPHA_BETA_PRUNING.equals(impl))
+                if (v <= alpha) return v; // Alpha-Cutoff
             beta = Math.min(v, beta);
-
         }
         return v;
     }

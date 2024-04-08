@@ -52,7 +52,7 @@ public class KalahBoard {
     // Konsolen-Ein/Ausgabe:
     private static Scanner in = new Scanner(System.in);
     private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_RED = "\u001B[31m";
 
     /**
      * Konstruktor. Legt eine Kalah-Board mit NMulden mit je NSteine an.
@@ -167,19 +167,19 @@ public class KalahBoard {
 
         if (curPlayer == APlayer) {
             s1 = ANSI_BLUE + s1;
-            s3 = ANSI_BLACK + s3;
+            s3 = ANSI_RED + s3;
         } else if (curPlayer == BPlayer) {
-            s1 = ANSI_BLACK + s1;
+            s1 = ANSI_RED + s1;
             s3 = ANSI_BLUE + s3;
         }
         int[] b = board;
         System.out.print(s1);
-        System.out.print(ANSI_BLACK);
+        System.out.print(ANSI_RED);
         System.out.printf(s2, b[5], b[4], b[3], b[2], b[1], b[0],
                 b[6], b[13],
                 b[7], b[8], b[9], b[10], b[11], b[12]);
         System.out.println(s3);
-        System.out.print(ANSI_BLACK);
+        System.out.print(ANSI_RED);
     }
 
     @Override

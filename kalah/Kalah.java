@@ -1,5 +1,9 @@
 package kalah;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Hauptprogramm für KalahMuster.
  *
@@ -9,6 +13,7 @@ package kalah;
 public class Kalah {
 
     private static final String ANSI_BLUE = "\u001B[34m";
+    private static final List<Integer> NUM_OF_INVOKES = new ArrayList<>();
 
     /**
      *
@@ -65,7 +70,8 @@ public class Kalah {
         while (!kalahBd.isFinished()) {
             int action;
             if (kalahBd.getCurPlayer() == 'A') {
-                KalahBoard bestBoard = minMax.minMax(kalahBd);
+                KalahBoard bestBoard = minMax.minMax(kalahBd, MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING);
+                NUM_OF_INVOKES.add(minMax.getCombinedCount());
                 action = bestBoard.getLastPlay();
                 System.out.println("A spielt: " + action);
             } else {
@@ -76,5 +82,7 @@ public class Kalah {
         }
 
         System.out.println("\n" + ANSI_BLUE + "GAME OVER");
+        double avg = ((double) NUM_OF_INVOKES.stream().reduce(Integer::sum).get() / NUM_OF_INVOKES.size());
+        System.out.println(Arrays.toString(NUM_OF_INVOKES.toArray()) + " Average : " + avg);
     }
 }
