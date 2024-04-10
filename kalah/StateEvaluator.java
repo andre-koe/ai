@@ -18,7 +18,7 @@ public class StateEvaluator {
     }
 
     private static int bonus(KalahBoard board) {
-        return board.isBonus() ? sign : 0;
+        return (int) (board.possibleActions().stream().filter(KalahBoard::isBonus).count() * 1000);
     }
 
     public static int evaluate(KalahBoard board) {
@@ -27,6 +27,6 @@ public class StateEvaluator {
             return finish(board) + 5 * kalahDifference(board) + possibleAction(board) + bonus(board);
         if (board.getAKalah() + board.getBKalah() < 8)
             return finish(board) + 3 * kalahDifference(board) + possibleAction(board) +  2 * bonus(board);
-        return finish(board) + kalahDifference(board) + possibleAction(board) + 2 * bonus(board);
+        return kalahDifference(board) + 10 * possibleAction(board) + bonus(board);
     }
 }

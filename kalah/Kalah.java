@@ -61,7 +61,7 @@ public class Kalah {
 
     public static void testMiniMaxAndAlphaBetaWithGivenBoard() {
         KalahBoard kalahBd = new KalahBoard(new int[]{2, 0, 4, 3, 2, 0, 0, 1, 0, 1, 3, 2, 1, 0}, 'A');
-        MinMax minMax = new MinMax();
+        //MinMax minMax = new MinMax();
         // A ist am Zug und kann aufgrund von Bonuszügen 8-mal hintereinander ziehen!
         // A muss deutlich gewinnen!
         kalahBd.print();
@@ -70,8 +70,8 @@ public class Kalah {
         while (!kalahBd.isFinished()) {
             int action;
             if (kalahBd.getCurPlayer() == 'A') {
-                KalahBoard bestBoard = minMax.minMax(kalahBd, MinMaxImpl.HEURISTIC_ALPHA_BETA_PRUNING);
-                NUM_OF_INVOKES.add(minMax.getCombinedCount());
+                KalahBoard bestBoard = MinMaxReImplemented.minMax(kalahBd); //, MinMaxImpl.CLASSIC);
+                //NUM_OF_INVOKES.add(minMax.getCombinedCount());
                 action = bestBoard.getLastPlay();
                 System.out.println("A spielt: " + action);
             } else {
@@ -82,7 +82,7 @@ public class Kalah {
         }
 
         System.out.println("\n" + ANSI_BLUE + "GAME OVER");
-        double avg = ((double) NUM_OF_INVOKES.stream().reduce(Integer::sum).get() / NUM_OF_INVOKES.size());
-        System.out.println(Arrays.toString(NUM_OF_INVOKES.toArray()) + " Average : " + avg);
+        //double avg = ((double) NUM_OF_INVOKES.stream().reduce(Integer::sum).get() / NUM_OF_INVOKES.size());
+        //System.out.println(Arrays.toString(NUM_OF_INVOKES.toArray()) + " Average : " + avg);
     }
 }

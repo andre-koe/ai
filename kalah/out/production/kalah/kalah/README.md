@@ -11,3 +11,4 @@ Alpha-Beta-Pruning
 
 Alpha-Beta + Heuristic
 
+[203160, 106134, 71440, 36, 3, 1] Average : 63462.333333333336

@@ -406,13 +406,10 @@ public class KalahBoard {
     }
 
     private boolean possibleAction(int mulde) {
-        switch (curPlayer) {
-            case APlayer:
-                return (AStart <= mulde && mulde < AKalah && board[mulde] > 0);
-            case BPlayer:
-                return (BStart <= mulde && mulde < BKalah && board[mulde] > 0);
-            default:
-                return false;
-        }
+        return switch (curPlayer) {
+            case APlayer -> (AStart <= mulde && mulde < AKalah && board[mulde] > 0);
+            case BPlayer -> (BStart <= mulde && mulde < BKalah && board[mulde] > 0);
+            default -> false;
+        };
     }
 }

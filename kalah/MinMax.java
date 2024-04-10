@@ -1,5 +1,6 @@
 package kalah;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
@@ -26,12 +27,11 @@ public class MinMax {
 
     private KalahBoard maxAction(KalahBoard board, int limit, int initAlpha, int initBeta) {
         KalahBoard bestAction = null;
-        // Prüfe auf Endzustand (Blatt)
         if (limit <= 0) return board;
         
         int v = Integer.MIN_VALUE;
         var boards = board.possibleActions();
-        boards.sort((o1, o2) -> Boolean.compare(o1.isBonus(), o2.isBonus()));
+        boards.sort((o1, o2) -> Boolean.compare(o2.isBonus(), o1.isBonus()));
         for (var action : boards) {
             int v1 = minValue(action, limit-1, initAlpha, initBeta);
             if (v1 > v) {
@@ -43,7 +43,6 @@ public class MinMax {
     }
 
     private int minValue(KalahBoard board, int limit, int alpha, int beta) {
-        // Prüfe auf Endzustand (Blatt)
         minCount++;
         if (limit <= 0 || board.isFinished()) return StateEvaluator.evaluate(board);
 
@@ -64,7 +63,6 @@ public class MinMax {
     }
 
     private int maxValue(KalahBoard board, int limit, int alpha, int beta) {
-        // Prüfe auf Endzustand (Blatt)
         maxCount++;
         if (limit <= 0 || board.isFinished()) return StateEvaluator.evaluate(board);
     
