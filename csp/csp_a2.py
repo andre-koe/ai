@@ -8,25 +8,26 @@ def solve():
                 "Mecklenburg-Vorpommern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Saarland", "Sachsen",
                 "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"]
     borders = {
-        "Baden-Württemberg": ["Bayern", "Hessen", "Rheinland-Pfalz"],  # Baden-Württemberg
-        "Bayern": ["Baden-Württemberg", "Hessen", "Thüringen"],  # Bayern
-        "Berlin": ["Brandenburg"],  # Berlin
-        "Brandenburg": ["Berlin", "Mecklenburg-Vorpommern", "Sachsen", "Sachsen-Anhalt"],  # Brandenburg
-        "Bremen": ["Niedersachsen"],  # Bremen
-        "Hamburg": ["Schleswig-Holstein"],  # Hamburg
-        "Hessen": ["Baden-Württemberg", "Bayern", "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz",
-                   "Thüringen"],  # Hessen
-        "Mecklenburg-Vorpommern": ["Brandenburg", "Schleswig-Holstein"],  # Mecklenburg-Vorpommern
-        "Niedersachsen": ["Bremen", "Hessen", "Hamburg", "Nordrhein-Westfalen", "Schleswig-Holstein", "Sachsen-Anhalt",
-                          "Thüringen"],  # Niedersachsen
-        "Nordrhein-Westfalen": ["Hessen", "Niedersachsen", "Rheinland-Pfalz"],  # Nordrhein-Westfalen
-        "Rheinland-Pfalz": ["Baden-Württemberg", "Hessen", "Nordrhein-Westfalen", "Saarland"],  # Rheinland-Pfalz
-        "Saarland": ["Rheinland-Pfalz"],  # Saarland
-        "Sachsen": ["Brandenburg", "Sachsen-Anhalt", "Thüringen"],  # Sachsen
-        "Sachsen-Anhalt": ["Brandenburg", "Niedersachsen", "Sachsen", "Thüringen"],  # Sachsen-Anhalt
-        "Schleswig-Holstein": ["Hamburg", "Mecklenburg-Vorpommern", "Niedersachsen"],  # Schleswig-Holstein
-        "Thüringen": ["Bayern", "Hessen", "Niedersachsen", "Sachsen", "Sachsen-Anhalt"]  # Thüringen
+        'Baden-Württemberg': ['Bayern', 'Hessen', 'Rheinland-Pfalz', 'Saarland'],
+        'Bayern': ['Baden-Württemberg', 'Hessen', 'Thüringen', 'Sachsen'],
+        'Berlin': ['Brandenburg'],
+        'Brandenburg': ['Berlin', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Sachsen-Anhalt', 'Sachsen'],
+        'Bremen': ['Niedersachsen'],
+        'Hamburg': ['Niedersachsen', 'Schleswig-Holstein'],
+        'Hessen': ['Baden-Württemberg', 'Bayern', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Thüringen',
+                   'Niedersachsen'],
+        'Mecklenburg-Vorpommern': ['Brandenburg', 'Niedersachsen', 'Schleswig-Holstein'],
+        'Niedersachsen': ['Brandenburg', 'Bremen', 'Hamburg', 'Mecklenburg-Vorpommern', 'Nordrhein-Westfalen',
+                          'Schleswig-Holstein', 'Hessen', 'Sachsen-Anhalt'],
+        'Nordrhein-Westfalen': ['Hessen', 'Niedersachsen', 'Rheinland-Pfalz'],
+        'Rheinland-Pfalz': ['Baden-Württemberg', 'Hessen', 'Nordrhein-Westfalen', 'Saarland'],
+        'Saarland': ['Baden-Württemberg', 'Rheinland-Pfalz'],
+        'Sachsen': ['Sachsen-Anhalt', 'Thüringen', 'Bayern', 'Brandenburg'],
+        'Sachsen-Anhalt': ['Brandenburg', 'Sachsen', 'Thüringen', 'Niedersachsen'],
+        'Schleswig-Holstein': ['Hamburg', 'Mecklenburg-Vorpommern', 'Niedersachsen'],
+        'Thüringen': ['Bayern', 'Hessen', 'Sachsen', 'Sachsen-Anhalt']
     }
+
     problem = Problem()
     problem.addVariables(counties, colors)
 
@@ -40,6 +41,9 @@ def solve():
 
 if __name__ == "__main__":
     solutions = solve()
-    print(f"Anzahl der Lösungen: {len(solutions)}")
     for s in solutions:
+
         print(s)
+
+    print(f"Anzahl der Lösungen: {len(solutions)}")
+

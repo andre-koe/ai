@@ -1,4 +1,4 @@
-from constraint import Problem, AllDifferentConstraint
+from constraint import Problem
 
 
 def solve():
